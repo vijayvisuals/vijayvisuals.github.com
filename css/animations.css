@@ -1,0 +1,287 @@
+/* ═══════════════════════════════════════════════════════════════
+   VFX PORTFOLIO — ANIMATIONS
+═══════════════════════════════════════════════════════════════ */
+
+/* ─── HERO NAME CHARACTER ANIMATION ─────────────────────────── */
+.hero-name .name-line {
+    position: relative;
+    animation: none;
+}
+
+.hero-name .name-char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(100%);
+    will-change: transform, opacity;
+}
+
+.loaded .hero-name .name-char {
+    animation: char-reveal 0.8s var(--ease-out) both;
+}
+
+@keyframes char-reveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ─── GENERIC REVEAL ANIMATIONS ─────────────────────────────── */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-right {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scale-in {
+    from {
+        opacity: 0;
+        transform: scale(0.94);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ─── SCROLL-TRIGGERED REVEAL ────────────────────────────────── */
+.section-reveal {
+    opacity: 1;
+}
+
+.reveal-elem {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+}
+
+.reveal-elem.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger children */
+.reveal-stagger .reveal-elem:nth-child(1) {
+    transition-delay: 0s;
+}
+
+.reveal-stagger .reveal-elem:nth-child(2) {
+    transition-delay: 0.1s;
+}
+
+.reveal-stagger .reveal-elem:nth-child(3) {
+    transition-delay: 0.2s;
+}
+
+.reveal-stagger .reveal-elem:nth-child(4) {
+    transition-delay: 0.3s;
+}
+
+.reveal-stagger .reveal-elem:nth-child(5) {
+    transition-delay: 0.4s;
+}
+
+.reveal-stagger .reveal-elem:nth-child(6) {
+    transition-delay: 0.5s;
+}
+
+/* ─── SECTION LABEL REVEAL ───────────────────────────────────── */
+.section-label {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.section-label.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ─── SECTION TITLE REVEAL ───────────────────────────────────── */
+.section-title {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.9s var(--ease-out) 0.1s, transform 0.9s var(--ease-out) 0.1s;
+}
+
+.section-title.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ─── PROJECT CARD ENTRANCE ──────────────────────────────────── */
+.project-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+
+.project-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ─── SKILL CARD ENTRANCE ────────────────────────────────────── */
+.skill-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s var(--ease-out),
+        transform 0.7s var(--ease-out),
+        border-color 0.4s ease;
+}
+
+.skill-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ─── CREDIT ROW ENTRANCE ────────────────────────────────────── */
+.credit-row {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.6s ease, transform 0.6s ease, background 0.3s ease;
+}
+
+.credit-row.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ─── TIMELINE ENTRANCE ──────────────────────────────────────── */
+.timeline-item {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ─── CONTACT LINK ENTRANCE ──────────────────────────────────── */
+.contact-link {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s ease,
+        border-color 0.3s ease;
+}
+
+.contact-link.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ─── PORTRAIT PARALLAX ──────────────────────────────────────── */
+.portrait-img {
+    transition: transform 0.1s linear;
+    will-change: transform;
+}
+
+/* ─── ABOUT CONTENT ENTRANCE ─────────────────────────────────── */
+.about-content {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.9s var(--ease-out) 0.15s, transform 0.9s var(--ease-out) 0.15s;
+}
+
+.about-content.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.about-portrait-wrap {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+}
+
+.about-portrait-wrap.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ─── SHOWREEL SECTION ENTRANCE ──────────────────────────────── */
+.showreel-player-wrap {
+    opacity: 0;
+    transform: scale(0.97);
+    transition: opacity 0.9s var(--ease-out) 0.1s, transform 0.9s var(--ease-out) 0.1s;
+}
+
+.showreel-player-wrap.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ─── SW ICON ENTRANCE ───────────────────────────────────────── */
+.sw-icon {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.sw-icon.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ─── HOVER GLOW ON INTERACTIVE ──────────────────────────────── */
+a,
+button {
+    transition-property: color, background, border-color, box-shadow, opacity, transform;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+}
+
+/* ─── IMDB LINK ENTRANCE ──────────────────────────────────────── */
+.imdb-link-wrap {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s;
+}
+
+.imdb-link-wrap.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ─── HERO VIDEO FADE IN ─────────────────────────────────────── */
+#hero-video {
+    opacity: 0;
+    transition: opacity 1.5s ease 3s;
+}
+
+.loaded #hero-video {
+    opacity: 1;
+}
