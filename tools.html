@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tools — Vijay Pratap Pandey</title>
+    <meta name="description" content="Custom VFX tools and scripts created by Vijay Pratap Pandey." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@200;300;400;500&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <style>
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .tool-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .tool-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .tool-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-dim);
+            color: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .tool-header h3 {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 300;
+            margin-bottom: 8px;
+        }
+
+        .tool-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tool-tag {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            color: var(--text-muted);
+        }
+
+        .tool-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .tool-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: var(--accent);
+            color: var(--bg);
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .tool-download:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .tool-download svg {
+            width: 16px;
+            height: 16px;
+        }
+    </style>
+</head>
+
+<body class="loaded">
+
+    <!-- Film Grain Overlay -->
+    <div id="grain-overlay" aria-hidden="true"></div>
+
+    <!-- ═══════════════════════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════════════════════ -->
+    <nav id="main-nav" class="scrolled">
+        <div class="nav-logo"><a href="index.html">VPP</a></div>
+        <ul class="nav-links">
+            <li><a href="index.html#showreel">Showreel</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="tools.html" class="active">Tools</a></li>
+            <li><a href="index.html#experience">Experience</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Open menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Nav -->
+    <div id="mobile-nav">
+        <ul>
+            <li><a href="index.html#showreel">Showreel</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="tools.html">Tools</a></li>
+            <li><a href="index.html#experience">Experience</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <main style="padding-top: var(--nav-h);">
+        <section id="tools" class="section-reveal visible" style="background: var(--bg);">
+            <div class="section-header">
+                <div class="section-label">02 — UTILITIES</div>
+                <h2 class="section-title">Created <em>Tools</em></h2>
+                <p style="color: var(--text-muted); margin-top: 16px; max-width: 600px;">A collection of custom Nuke gizmos and Python scripts designed to streamline VFX workflows and solve complex technical challenges.</p>
+            </div>
+
+            <div class="tools-grid">
+                <!-- Placeholder Tool 1 -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    </div>
+                    <div class="tool-header">
+                        <h3>Advanced Spill Suppressor</h3>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Nuke</span>
+                            <span class="tool-tag">Gizmo</span>
+                        </div>
+                    </div>
+                    <p class="tool-desc">A comprehensive spill suppression tool for Nuke with fine control over luminance retention and color biasing.</p>
+                    <a href="#" class="tool-download">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download Tool
+                    </a>
+                </div>
+
+                <!-- Placeholder Tool 2 -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    </div>
+                    <div class="tool-header">
+                        <h3>Render Farm Automator</h3>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Python</span>
+                            <span class="tool-tag">Tractor</span>
+                        </div>
+                    </div>
+                    <p class="tool-desc">Automation script for batch submitting complex Nuke scripts to Tractor with custom metadata and error handling.</p>
+                    <a href="#" class="tool-download">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download Tool
+                    </a>
+                </div>
+
+                <!-- Placeholder Tool 3 -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg>
+                    </div>
+                    <div class="tool-header">
+                        <h3>Grain Matching Studio</h3>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Nuke</span>
+                            <span class="tool-tag">BlinkScript</span>
+                        </div>
+                    </div>
+                    <p class="tool-desc">Advanced grain extraction and matching utility using custom BlinkScript kernels for high-speed processing.</p>
+                    <a href="#" class="tool-download">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download Tool
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="footer-inner">
+            <span class="footer-name">VIJAY PRATAP PANDEY</span>
+            <span class="footer-copy">© 2024 · VFX Compositor · All Rights Reserved</span>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -6,36 +6,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ─── CURSOR GLOW — RAF with dirty-flag, skips idle frames ── */
-  const cursorGlow = document.getElementById('cursor-glow');
-  let mouseX = -999, mouseY = -999;
-  let glowX = -999, glowY = -999;
-  let cursorDirty = false;
-  let cursorRAF = null;
 
-  document.addEventListener('mousemove', e => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    if (!cursorDirty) {
-      cursorDirty = true;
-      cursorRAF = requestAnimationFrame(animateCursor);
-    }
-  }, { passive: true });
-
-  function animateCursor() {
-    cursorRAF = null;
-    const dx = mouseX - glowX;
-    const dy = mouseY - glowY;
-    // Stop looping when close enough (saves CPU when idle)
-    if (Math.abs(dx) < 0.3 && Math.abs(dy) < 0.3) {
-      cursorDirty = false;
-      return;
-    }
-    glowX += dx * 0.10;
-    glowY += dy * 0.10;
-    cursorGlow.style.transform = `translate(${glowX}px, ${glowY}px) translate(-50%, -50%)`;
-    cursorRAF = requestAnimationFrame(animateCursor);
-  }
 
   /* ─── LOADING SCREEN — waits for hero image + min timer ──── */
   const loader = document.getElementById('loader');
@@ -181,5 +152,80 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, { passive: true });
   }
+
+  /* ─── STATS COUNTER ─────────────────────────────────────────── */
+  function animateCount(el, target, duration = 1200) {
+    const start = performance.now();
+    const update = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const ease = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(ease * target) + (target >= 40 ? '+' : '');
+      if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  }
+
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const nums = entry.target.querySelectorAll('.stat-num');
+        nums.forEach((el, i) => {
+          const target = parseInt(el.getAttribute('data-target'), 10);
+          setTimeout(() => animateCount(el, target), i * 120);
+        });
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  const statsStrip = document.getElementById('stats-strip');
+  if (statsStrip) statsObserver.observe(statsStrip);
+
+  /* ─── PROJECT CARD STAGGER REVEAL ───────────────────────────── */
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, idx) => {
+      if (entry.isIntersecting) {
+        const card = entry.target;
+        const i = Array.from(document.querySelectorAll('.project-card')).indexOf(card);
+        setTimeout(() => {
+          card.classList.add('card-visible');
+        }, (i % 3) * 80); // stagger by column position
+        cardObserver.unobserve(card);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.project-card').forEach(card => cardObserver.observe(card));
+
+  /* ─── FILTER TABS ────────────────────────────────────────────── */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Update active button
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.getAttribute('data-filter');
+
+      projectCards.forEach(card => {
+        const cat = card.getAttribute('data-category') || '';
+        const show = filter === 'all' || cat.includes(filter);
+
+        if (show) {
+          card.classList.remove('card-hidden');
+          // Re-trigger stagger if not yet visible
+          if (!card.classList.contains('card-visible')) {
+            card.classList.add('card-visible');
+          }
+        } else {
+          card.classList.add('card-hidden');
+        }
+      });
+    });
+  });
 
 });

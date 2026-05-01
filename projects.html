@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects — Vijay Pratap Pandey</title>
+    <meta name="description" content="Selected filmography and VFX projects of Vijay Pratap Pandey." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@200;300;400;500&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+</head>
+
+<body class="loaded">
+
+    <!-- Film Grain Overlay -->
+    <div id="grain-overlay" aria-hidden="true"></div>
+
+    <!-- ═══════════════════════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════════════════════ -->
+    <nav id="main-nav" class="scrolled">
+        <div class="nav-logo"><a href="index.html">VPP</a></div>
+        <ul class="nav-links">
+            <li><a href="index.html#showreel">Showreel</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="projects.html" class="active">Projects</a></li>
+            <li><a href="tools.html">Tools</a></li>
+            <li><a href="index.html#experience">Experience</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Open menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Nav -->
+    <div id="mobile-nav">
+        <ul>
+            <li><a href="index.html#showreel">Showreel</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="tools.html">Tools</a></li>
+            <li><a href="index.html#experience">Experience</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <main style="padding-top: var(--nav-h);">
+        <section id="work" class="section-reveal visible" style="background: var(--bg);">
+            <div class="section-header">
+                <div class="section-label">01 — PORTFOLIO</div>
+                <h2 class="section-title">Selected <em>Projects</em></h2>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="filter-tabs" id="filter-tabs">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="dneg">DNEG</button>
+                <button class="filter-btn" data-filter="freelance">Freelance</button>
+                <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+            </div>
+
+            <div class="projects-grid" id="projects-grid">
+
+                <div class="project-card card-visible" data-i="0" data-project="furiosa" data-category="dneg">
+                    <div class="project-thumb">
+                        <div class="project-thumb-bg">
+                            <img src="posters/Furiosa.jpg" alt="Furiosa: A Mad Max Saga" class="project-poster-img" />
+                        </div>
+                        <div class="project-hover">
+                            <div class="project-meta-chip">Warner Bros. / DNEG</div>
+                            <h3>Furiosa: A Mad Max Saga</h3>
+                            <p>Compositor</p>
+                            <button class="project-view-btn">View Case Study →</button>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-year">2024</span>
+                        <span class="project-studio">DNEG</span>
+                    </div>
+                </div>
+
+                <div class="project-card card-visible" data-i="0" data-project="ghostbusters" data-category="dneg">
+                    <div class="project-thumb">
+                        <div class="project-thumb-bg">
+                            <img src="posters/Ghostbuster.jpg" alt="Ghostbusters: Frozen Empire" class="project-poster-img" />
+                        </div>
+                        <div class="project-hover">
+                            <div class="project-meta-chip">Sony Pictures / DNEG</div>
+                            <h3>Ghostbusters: Frozen Empire</h3>
+                            <p>Compositor</p>
+                            <button class="project-view-btn">View Case Study →</button>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-year">2024</span>
+                        <span class="project-studio">DNEG</span>
+                    </div>
+                </div>
+
+                <div class="project-card card-visible" data-i="0" data-project="kalki" data-category="dneg">
+                    <div class="project-thumb">
+                        <div class="project-thumb-bg">
+                            <img src="posters/Kalki.jpg" alt="Kalki 2898-AD" class="project-poster-img" />
+                        </div>
+                        <div class="project-hover">
+                            <div class="project-meta-chip">Vyjayanthi Films / DNEG</div>
+                            <h3>Kalki 2898-AD</h3>
+                            <p>Compositor</p>
+                            <button class="project-view-btn">View Case Study →</button>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-year">2024</span>
+                        <span class="project-studio">DNEG</span>
+                    </div>
+                </div>
+
+                <div class="project-card card-visible" data-i="0" data-project="skyforce" data-category="dneg">
+                    <div class="project-thumb">
+                        <div class="project-thumb-bg">
+                            <img src="posters/sky force.jpg" alt="Sky Force" class="project-poster-img" />
+                        </div>
+                        <div class="project-hover">
+                            <div class="project-meta-chip">Jio Studios / DNEG</div>
+                            <h3>Sky Force</h3>
+                            <p>Compositor</p>
+                            <button class="project-view-btn">View Case Study →</button>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-year">2025</span>
+                        <span class="project-studio">DNEG</span>
+                    </div>
+                </div>
+
+                <div class="project-card card-visible" data-i="0" data-project="ramayana" data-category="dneg upcoming">
+                    <div class="project-thumb">
+                        <div class="project-thumb-bg">
+                            <img src="posters/Ramayana.jpg" alt="Ramayana Part 1" class="project-poster-img" />
+                        </div>
+                        <div class="project-hover">
+                            <div class="project-meta-chip">Nitesh Tiwari / DNEG</div>
+                            <h3>Ramayana Part 1</h3>
+                            <p>Compositor</p>
+                            <button class="project-view-btn">View Case Study →</button>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-year">2026</span>
+                        <span class="project-studio">DNEG</span>
+                    </div>
+                </div>
+
+                <div class="project-card card-visible" data-i="0" data-project="mortalkombat" data-category="dneg upcoming">
+                    <div class="project-thumb">
+                        <div class="project-thumb-bg">
+                            <img src="posters/Mortal Combat.png" alt="Mortal Kombat II" class="project-poster-img" />
+                        </div>
+                        <div class="project-hover">
+                            <div class="project-meta-chip">New Line Cinema / DNEG</div>
+                            <h3>Mortal Kombat II</h3>
+                            <p>Compositor</p>
+                            <button class="project-view-btn">View Case Study →</button>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-year">2026</span>
+                        <span class="project-studio">DNEG</span>
+                    </div>
+                </div>
+
+                <div class="project-card card-visible" data-i="0" data-project="dulo" data-category="freelance">
+                    <div class="project-thumb">
+                        <div class="project-thumb-bg">
+                            <img src="posters/Dulo.jpg" alt="Dulo" class="project-poster-img" />
+                        </div>
+                        <div class="project-hover">
+                            <div class="project-meta-chip">FABFX Studios · Freelance</div>
+                            <h3>Dulo</h3>
+                            <p>Compositor</p>
+                            <button class="project-view-btn">View Case Study →</button>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-year">2023</span>
+                        <span class="project-studio">FABFX</span>
+                    </div>
+                </div>
+
+                <div class="project-card card-visible" data-i="0" data-project="garfield" data-category="dneg">
+                    <div class="project-thumb">
+                        <div class="project-thumb-bg">
+                            <img src="posters/Garfield.jpeg" alt="The Garfield Movie" class="project-poster-img" />
+                        </div>
+                        <div class="project-hover">
+                            <div class="project-meta-chip">Sony Pictures / DNEG</div>
+                            <h3>The Garfield Movie</h3>
+                            <p>Compositor</p>
+                            <button class="project-view-btn">View Case Study →</button>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-year">2024</span>
+                        <span class="project-studio">DNEG</span>
+                    </div>
+                </div>
+
+                <div class="project-card card-visible" data-i="0" data-project="timebandits" data-category="dneg">
+                    <div class="project-thumb">
+                        <div class="project-thumb-bg">
+                            <img src="posters/time bandits.jpg" alt="Time Bandits" class="project-poster-img" />
+                        </div>
+                        <div class="project-hover">
+                            <div class="project-meta-chip">Apple TV+ / DNEG</div>
+                            <h3>Time Bandits</h3>
+                            <p>Compositor &nbsp;·&nbsp; TV Series</p>
+                            <button class="project-view-btn">View Case Study →</button>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-year">2024</span>
+                        <span class="project-studio">DNEG</span>
+                    </div>
+                </div>
+
+                <div class="project-card card-visible" data-i="0" data-project="headsofstate" data-category="dneg">
+                    <div class="project-thumb">
+                        <div class="project-thumb-bg">
+                            <img src="posters/heads of state.jpg" alt="Heads of State" class="project-poster-img" />
+                        </div>
+                        <div class="project-hover">
+                            <div class="project-meta-chip">Amazon / DNEG</div>
+                            <h3>Heads of State</h3>
+                            <p>Compositor</p>
+                            <button class="project-view-btn">View Case Study →</button>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-year">2025</span>
+                        <span class="project-studio">DNEG</span>
+                    </div>
+                </div>
+
+                <div class="project-card card-visible" data-i="0" data-project="teribaaton" data-category="dneg">
+                    <div class="project-thumb">
+                        <div class="project-thumb-bg">
+                            <img src="posters/Teri baato me aaisa uljha jiya.webp" alt="Teri Baaton Mein Aisa Uljha Jiya" class="project-poster-img" />
+                        </div>
+                        <div class="project-hover">
+                            <div class="project-meta-chip">Dinesh Vijan / DNEG</div>
+                            <h3>Teri Baaton Mein Aisa Uljha Jiya</h3>
+                            <p>Compositor</p>
+                            <button class="project-view-btn">View Case Study →</button>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-year">2024</span>
+                        <span class="project-studio">DNEG</span>
+                    </div>
+                </div>
+
+                <div class="project-card card-visible" data-i="0" data-project="mercy" data-category="dneg">
+                    <div class="project-thumb">
+                        <div class="project-thumb-bg">
+                            <img src="posters/mercy.jpg" alt="Mercy" class="project-poster-img" />
+                        </div>
+                        <div class="project-hover">
+                            <div class="project-meta-chip">DNEG</div>
+                            <h3>Mercy</h3>
+                            <p>Compositor</p>
+                            <button class="project-view-btn">View Case Study →</button>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-year">2026</span>
+                        <span class="project-studio">DNEG</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="footer-inner">
+            <span class="footer-name">VIJAY PRATAP PANDEY</span>
+            <span class="footer-copy">© 2024 · VFX Compositor · All Rights Reserved</span>
+        </div>
+    </footer>
+
+    <!-- Project Modal -->
+    <div id="project-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-backdrop" id="modal-backdrop"></div>
+        <div class="modal-panel glass">
+            <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+            <div class="modal-content" id="modal-content">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/projects.js"></script>
+</body>
+
+</html>
