@@ -1,0 +1,115 @@
+set cut_paste_input [stack 0]
+version 15.1 v2
+push $cut_paste_input
+Group {
+ name RotoNoise
+ label "\n"
+ selected true
+ xpos 275
+ ypos -78
+ addUserKnob {20 User}
+ addUserKnob {41 channels T Constant2.channels}
+ addUserKnob {41 format T Constant2.format}
+ addUserKnob {26 ""}
+ addUserKnob {7 speed}
+ addUserKnob {41 uv_scale l "UV scale" T IDistort1.uv_scale}
+ addUserKnob {26 ""}
+ addUserKnob {14 xysize_green l x/ysize R 0 100}
+ xysize_green 200
+ addUserKnob {7 gain_green l gain}
+ gain_green 0.635
+}
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant2
+  xpos -909
+  ypos -396
+ }
+ Noise {
+  output {-rgba.red rgba.green -rgba.blue -rgba.alpha}
+  maskChannelMask -rgba.alpha
+  size {{parent.xysize_green} {parent.xysize_green}}
+  zoffset {{frame*parent.speed}}
+  gain {{parent.gain_green}}
+  gamma 1
+  center {1138 953}
+  name Noise2
+  xpos -873
+  ypos -300
+ }
+ Noise {
+  output {rgba.red -rgba.green -rgba.blue -rgba.alpha}
+  maskChannelMask -rgba.alpha
+  size {{parent.xysize_green} {parent.xysize_green}}
+  zoffset {{(frame*parent.speed)+100}}
+  gain {{parent.gain_green}}
+  gamma 1
+  center {1138 953}
+  name Noise3
+  xpos -873
+  ypos -238
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos -683
+  ypos -364
+ }
+set Neec72400 [stack 0]
+ ShuffleCopy {
+  inputs 2
+  alpha alpha2
+  black red
+  white green
+  red2 black
+  green2 black
+  out2 forward
+  name ShuffleCopy2
+  xpos -683
+  ypos -238
+ }
+ IDistort {
+  channels alpha
+  uv forward
+  uv_offset 0.5
+  uv_scale 150
+  name IDistort1
+  xpos -683
+  ypos -136
+ }
+set Neec72c00 [stack 0]
+ Output {
+  name Output1
+  xpos -683
+  ypos -45
+ }
+push $Neec72400
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  black black
+  white black
+  red2 black
+  green2 black
+  name Shuffle1
+  xpos -808
+  ypos -376
+ }
+push $Neec72c00
+push $Neec72c00
+ Viewer {
+  inputs 2
+  frame 1281
+  frame_range 1-1762
+  frame_increment 8
+  input_number 1
+  center_fstop 0
+  input_process false
+  name Viewer1
+  xpos -446
+  ypos -204
+ }
+end_group

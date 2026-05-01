@@ -1,0 +1,115 @@
+Group {
+ name FrameFixPro
+ tile_color 0xafa55cff
+ inputs 2
+ help "This node repairs a single or multiple consecutive broken frames using Kronos' optical flow method.\n\nImportant: Don't use a single node for multiple non-consecutive broken frames; use separate nodes stacked up for each gap instead.\n\nFrameFixPro v1.0\n&copy; Andras Szocs &#124; <a href='http://andrasszocs.com'>andrasszocs.com</a>"
+ label "\[expr \{\[value firstFrame] == \[value lastFrame] ? \"frame \[value firstFrame]\" : \"frames \[value firstFrame]-\[value lastFrame]\"\}]"
+ addUserKnob {20 FrameFixPro}
+ addUserKnob {41 firstFrame l "First broken frame" t "For a single broken frame, first and last frames should be set to the same value.\n\nFor multiple consecutive broken frames, set the range to be fixed.\n\nImportant: Don't use a single node for multiple non-consecutive broken frames; use separate nodes stacked up for each gap instead." T FrameHold1.firstFrame}
+ addUserKnob {41 setToCurrentFrame l "Set to Current Frame" -STARTLINE T FrameHold1.setToCurrentFrame}
+ addUserKnob {41 lastFrame l "Last broken frame" t "For a single broken frame, first and last frames should be set to the same value.\n\nFor multiple consecutive broken frames, set the range to be fixed.\n\nImportant: Don't use a single node for multiple non-consecutive broken frames; use separate nodes stacked up for each gap instead." T FrameHold2.firstFrame}
+ addUserKnob {41 setToCurrentFrame_1 l "Set to Current Frame" -STARTLINE T FrameHold2.setToCurrentFrame}
+ addUserKnob {20 Advanced t "Kronos settings.\n\nNote: Requires NukeX license." n 2}
+ addUserKnob {4 motionEstimation l Motion t "Choose the motion estimation method.\n\nRegularized - calculates motion in a semi-global way, providing more consistent regions in the vector fields.\nLocal - calculates motion by performing local block matching. This can sometimes lead to fragmentation in the vector fields. This is the legacy method used by previous versions of Kronos. " M {Regularized Local}}
+ addUserKnob {7 vectorDetailReg l "Vector Detail" t "Use this to adjust the density of the calculated motion vector field. Higher detail picks up finer movement but will take longer to calculate." R 0.01 1 +LOG}
+ vectorDetailReg 0.3
+ addUserKnob {7 strengthReg l Strength t "Match strength." R 0 1.5}
+ strengthReg 1.5
+ addUserKnob {7 vectorDetailLocal l "Vector Detail" t "Use this to adjust the density of the calculated motion vector field. Higher detail picks up finer movement but will take longer to calculate." +HIDDEN R 0.01 1 +LOG}
+ vectorDetailLocal 0.2
+ addUserKnob {7 smoothnessLocal l Smoothness t "A high smoothness will miss local detail, but is less likely to create spurious vectors." +HIDDEN R 0.01 1 +LOG}
+ smoothnessLocal 0.5
+ addUserKnob {41 resampleType l Filter t "Choose the image resampling type." T Kronos1.resampleType}
+ addUserKnob {3 previousValue l "" +INVISIBLE}
+ previousValue 1001
+  knobChanged "k=nuke.thisKnob().name(); n=nuke.thisNode()\nif k in ['showPanel', 'motionEstimation', 'inputChange']:\n    is_x = nuke.env.get('nukex')\n    for knob in ['motionEstimation', 'vectorDetailReg', 'strengthReg', 'vectorDetailLocal', 'smoothnessLocal', 'resampleType']:\n        n.knob(knob).setEnabled(is_x)\n    if is_x:\n        m = n['motionEstimation'].value(); r = (m == 'Regularized'); l = (m == 'Local')\n        n['vectorDetailReg'].setVisible(r); n['strengthReg'].setVisible(r)\n        n['vectorDetailLocal'].setVisible(l); n['smoothnessLocal'].setVisible(l)"
+}
+ Input {
+  inputs 0
+  name mask
+  xpos 742
+  ypos 386
+  number 1
+ }
+ Input {
+  inputs 0
+  name Input
+  xpos 394
+  ypos 115
+ }
+ Dot {
+  name Dot1
+  xpos 428
+  ypos 147
+ }
+set Na2dd7c00 [stack 0]
+push $Na2dd7c00
+ TimeOffset {
+  time_offset {{frame==1?2-firstFrame:1-lastFrame}}
+  time ""
+  name TimeOffset1
+  xpos 536
+  ypos 216
+ }
+ Kronos {
+  input.first -999
+  input.last -980
+  retimedChannels all
+  timing2 Frame
+  timingOutputSpeed 1
+  timingFrame2 {{(frame-1)/(lastFrame-firstFrame+2)+1}}
+  motionEstimation {{parent.motionEstimation}}
+  vectorDetailLocal {{parent.vectorDetailLocal}}
+  smoothnessLocal {{parent.smoothnessLocal}}
+  vectorDetailReg {{parent.vectorDetailReg}}
+  strengthReg {{parent.strengthReg}}
+  Advanced 1
+  name Kronos1
+  xpos 536
+  ypos 274
+ }
+ TimeOffset {
+  time_offset {{parent.firstFrame-2}}
+  time ""
+  name TimeOffset2
+  xpos 536
+  ypos 329
+ }
+ Keymix {
+  inputs 3
+  invertMask true
+  name Keymix1
+  xpos 536
+  ypos 380
+  disable {{"\[if \{\[exists mask] && \[lsearch \[channels mask] rgba.alpha] != -1\} \{return 0\} \{return 1\}]\n"}}
+ }
+push $Na2dd7c00
+ Switch {
+  inputs 2
+  which {{1-((frame<parent.firstFrame)||(frame>parent.lastFrame))}}
+  name Switch1
+  xpos 394
+  ypos 386
+ }
+ Output {
+  name Output
+  xpos 394
+  ypos 446
+ }
+ FrameHold {
+  inputs 0
+  firstFrame {{FrameHold1.firstFrame}}
+  knobChanged "n=nuke.thisNode().parent(); k=nuke.thisKnob(); f=n\['firstFrame'].value(); l=n\['lastFrame'].value(); p=n\['previousValue']\nif l<f:\n nuke.message('Error: Last frame cannot be smaller than First frame!'); k.setValue(p.value())\nelse: p.setValue(k.value())"
+  name FrameHold2
+  xpos 754
+  ypos 207
+ }
+ FrameHold {
+  inputs 0
+  firstFrame 1001
+  knobChanged "n=nuke.thisNode().parent(); k=nuke.thisKnob(); f=n\['firstFrame'].value(); l=n\['lastFrame'].value(); p=n\['previousValue']\nif l<f:\n nuke.message('Error: First frame cannot be larger than Last frame!'); k.setValue(p.value())\nelse: p.setValue(k.value())"
+  name FrameHold1
+  xpos 656
+  ypos 207
+ }
+end_group

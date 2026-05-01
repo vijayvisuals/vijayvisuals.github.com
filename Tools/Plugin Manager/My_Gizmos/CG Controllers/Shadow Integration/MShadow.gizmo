@@ -1,0 +1,199 @@
+set cut_paste_input [stack 0]
+version 15.1 v2
+push $cut_paste_input
+Group {
+ name MShadow3
+ help "MShadow outputs a matte which then is supposed to be multiplied with the plate in order to apply the shadow."
+ tile_color 0x2c80c4ff
+ label "\n"
+ selected true
+ xpos 65
+ ypos -48
+ addUserKnob {20 User}
+ addUserKnob {22 documentation l Documentation T nukescripts.start('http://dnet.dneg.com/display/TM/VanaheimSetup+MShadow#') +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {41 in l Diffuse T Shuffle14.in}
+ addUserKnob {41 in_1 l "Diffuse Unoccluded" T Shuffle17.in}
+ addUserKnob {26 ""}
+ addUserKnob {41 saturation T Saturation1.saturation}
+ addUserKnob {41 black l lift T Grade1.black}
+ addUserKnob {41 size l blur T Blur1.size}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {20 info l Info}
+ addUserKnob {26 info_1 l "" +STARTLINE T "MShadow_WASH_v001_01\nlast update from 24/09/2015 by Stephen James (saj@dneg.com)"}
+}
+ Input {
+  inputs 0
+  name CG_Shadows
+  tile_color 0x2c80c4ff
+  xpos -414
+  ypos -1008
+ }
+ Dot {
+  name Dot3
+  xpos -380
+  ypos -894
+ }
+set Nf76eb800 [stack 0]
+ AdjBBox {
+  name AdjBBox1
+  xpos -207
+  ypos -897
+ }
+ Dot {
+  name Dot1
+  xpos -23
+  ypos -894
+ }
+ Expression {
+  channel0 rgb
+  expr0 1
+  channel2 {-rgba.red -rgba.green -rgba.blue none}
+  name Expression5
+  tile_color 0x2c80c4ff
+  xpos -57
+  ypos -819
+ }
+ Dot {
+  name Dot2
+  xpos -23
+  ypos -270
+ }
+push $Nf76eb800
+ Unpremult {
+  channels all
+  name Unpremult1
+  tile_color 0x2c80c4ff
+  xpos -414
+  ypos -824
+ }
+ Clamp {
+  maximum_enable false
+  MinClampTo 0.0001
+  MinClampTo_enable true
+  name Clamp1
+  xpos -414
+  ypos -786
+ }
+ Dot {
+  name diffuse_shadow0_marker
+  xpos -380
+  ypos -678
+ }
+set Nfabe6800 [stack 0]
+ Shuffle {
+  in none
+  in2 alpha
+  alpha red2
+  name Shuffle14
+  tile_color 0xb16bffff
+  note_font "DejaVu LGC Sans Bold"
+  note_font_size 12
+  xpos -515
+  ypos -586
+ }
+push $Nfabe6800
+ Shuffle {
+  in none
+  in2 alpha
+  alpha red2
+  name Shuffle17
+  tile_color 0xb16bffff
+  note_font "DejaVu LGC Sans Bold"
+  note_font_size 12
+  xpos -329
+  ypos -589
+ }
+ Merge2 {
+  inputs 2
+  operation divide
+  output {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Merge2
+  xpos -414
+  ypos -516
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove10
+  tile_color 0xb16bffff
+  note_font "DejaVu Sans"
+  note_font_size 10
+  xpos -414
+  ypos -434
+ }
+ Premult {
+  name Premult1
+  tile_color 0x2c80c4ff
+  xpos -414
+  ypos -370
+ }
+ Merge2 {
+  inputs 2
+  operation under
+  also_merge all
+  name Merge1
+  xpos -414
+  ypos -274
+ }
+set Nfac18000 [stack 0]
+ Saturation {
+  mode "Ccir 601"
+  name Saturation1
+  tile_color 0x2c80c4ff
+  xpos -414
+  ypos -130
+ }
+ Grade {
+  black 0.5
+  white_clamp true
+  name Grade1
+  tile_color 0x2c80c4ff
+  xpos -414
+  ypos -84
+ }
+ Blur {
+  channels rgb
+  name Blur1
+  xpos -414
+  ypos -21
+ }
+ Shuffle {
+  alpha white
+  black black
+  white black
+  red2 black
+  green2 black
+  name Shuffle1
+  tile_color 0xb16bffff
+  xpos -414
+  ypos 49
+  disable {{"\[python -execlocal marker\\ =\\ nuke.toNode('diffuse_shadow0_marker')\\nchannels\\ =\\ \\\[channel\\ for\\ channel\\ in\\ marker.channels()\\ if\\ 'dneg_direct_diffuse'\\ in\\ channel\\]\\nif\\ channels:\\n\\ \\ \\ \\ ret\\ =\\ 1\\nelse:\\n\\ \\ \\ \\ ret\\ =\\ 0]"}}
+ }
+ Clamp {
+  channels rgba
+  name Clamp4
+  tile_color 0x2c80c4ff
+  xpos -414
+  ypos 159
+ }
+set Nfac19400 [stack 0]
+ Output {
+  name Output1
+  tile_color 0x2c80c4ff
+  xpos -414
+  ypos 465
+ }
+push $Nfac18000
+push $Nfac19400
+ Viewer {
+  inputs 2
+  frame_range 1001-1100
+  overscan 300
+  center_fstop 0
+  far 100000
+  name Viewer1
+  xpos -625
+  ypos -452
+ }
+end_group

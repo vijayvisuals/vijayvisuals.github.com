@@ -1,0 +1,55 @@
+Group {
+ name LightMixer
+ knobChanged "\nn = nuke.thisNode()\nk = nuke.thisKnob()\nkname = k.name()\nif kname.endswith(\"_solo\"):\n    val = k.getValue()\n    if val == 1:\n        for kn in n.knobs():\n            if kn.endswith(\"_solo\") and kn != kname:\n                n\[kn].setValue(0)\n    aov_name = kname.rsplit(\"_\", 1)\[0]\n    n.begin()\n    solo_sw = nuke.toNode(\"solo_switch\")\n    solo_sw.setInput(1, nuke.toNode(\"\{\}_mult\".format(aov_name)))\n    solo_sw\[\"which\"].setValue(val)\n    n.end()\nif kname.endswith(\"_dis\"):\n    aov_name = kname.rsplit(\"_\", 1)\[0]\n    val = k.getValue()\n    skip = \[\"solo\",\"mute\",\"dis\",\"inject\",\"del\",\"about\",\"reset\",\"preview\",\"up\",\"dn\",\"grp\",\"tex\",\"div\"]\n    for kn in n.knobs():\n        if kn.startswith(aov_name + \"_\"):\n            sf = kn.rsplit(\"_\", 1)\[1]\n            if sf not in skip:\n                n\[kn].setEnabled(val == 0)\nif kname.endswith(\"_temp\"):\n    sf = kname.rsplit(\"_\", 1)\n    if len(sf) == 2 and sf\[1] == \"temp\":\n        import _LightMixer_utils\n        _LightMixer_utils.update_temp_knobs(n, sf\[0])"
+ tile_color 0x8535d5ff
+ lock_connections true
+ addUserKnob {20 LightMixer l "Light Mixer"}
+ addUserKnob {22 add_aov l "Select AOV" -STARTLINE T "import _LightMixer_utils; _LightMixer_utils.select_aov(nuke.thisNode())"}
+ addUserKnob {22 auto_detect l "Auto-Detect" -STARTLINE T "import _LightMixer_utils; _LightMixer_utils.auto_detect_aovs(nuke.thisNode())"}
+ addUserKnob {22 clear_all l "Clear All" -STARTLINE T "node = nuke.thisNode()\ndel_knobs = \[k for k in node.knobs() if k.endswith(\"_del\")]\nfor k in del_knobs:\n    if node.knob(k):\n        node\[k].execute()"}
+ addUserKnob {22 save_preset l "Save Preset" +STARTLINE T "import _LightMixer_utils; _LightMixer_utils.save_preset(nuke.thisNode())"}
+ addUserKnob {22 load_preset l "Load Preset" -STARTLINE T "import _LightMixer_utils; _LightMixer_utils.load_preset(nuke.thisNode())"}
+ addUserKnob {22 delete_preset l "Delete Preset" -STARTLINE T "import _LightMixer_utils; _LightMixer_utils.delete_preset(nuke.thisNode())"}
+ addUserKnob {22 contact_sheet l "Contact Sheet" +STARTLINE T "import _LightMixer_utils; _LightMixer_utils.generate_contact_sheet(nuke.thisNode())"}
+ addUserKnob {22 group_actions l "Group Actions" -STARTLINE T "import _LightMixer_utils; _LightMixer_utils.group_actions(nuke.thisNode())"}
+ addUserKnob {26 ""}
+ addUserKnob {41 mix T merge_mask.mix}
+ addUserKnob {26 mix_div l "" +STARTLINE}
+ addUserKnob {26 credit l "" t "\u00a9 Harut Harutyunyan\nhar8unyan@gmail.com\n2022" +STARTLINE T "<font><br/><b><a href=\"https://linktr.ee/har8unyan\" style=\"color:#666\">Harut Harutyunyan</a></b></font>"}
+}
+ Input {
+  inputs 0
+  name mask
+  xpos 224
+  ypos 4341
+  number 1
+ }
+ Input {
+  inputs 0
+  name Input
+  xpos -76
+  ypos 4218
+ }
+set Ne9381800 [stack 0]
+push $Ne9381800
+ Switch {
+  inputs 2
+  name solo_switch
+  xpos 74
+  ypos 4311
+ }
+push $Ne9381800
+ Merge2 {
+  inputs 2+1
+  operation copy
+  also_merge all
+  name merge_mask
+  xpos 74
+  ypos 4341
+ }
+ Output {
+  name Output1
+  xpos -76
+  ypos 4371
+ }
+end_group

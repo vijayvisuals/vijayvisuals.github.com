@@ -1,0 +1,132 @@
+#! C:/Program Files/Nuke15.1v2/nuke-15.1.2.dll -nx
+#write_info Write1 file:"[value Path][value filename][value Choose][value precomp][value PrecompName][value Hash]" format:"1920 1080 1" chans:":" framerange:"1001 1100" fps:"0" colorspace:"default (Gamma2.2)" datatype:"unknown" transfer:"unknown" views:"main" colorManagement:"Nuke"
+version 15.1 v2
+Gizmo {
+ tile_color 0xff5f00ff
+ gl_color 0x7f0000ff
+ addUserKnob {20 Write}
+ addUserKnob {41 channels T Write1.channels}
+ addUserKnob {41 file_type l "file type" T Write1.file_type}
+ addUserKnob {41 Path T Write1.Path}
+ addUserKnob {41 filename T Write1.filename}
+ addUserKnob {41 Choose l Option T Write1.Choose}
+ addUserKnob {41 precomp T Write1.precomp}
+ addUserKnob {41 PrecompName l "Precomp Name" T Write1.PrecompName}
+ addUserKnob {26 ""}
+ addUserKnob {41 colorspace T Write1.colorspace}
+ addUserKnob {41 create_directories l "create directories" T Write1.create_directories}
+ addUserKnob {26 ""}
+ addUserKnob {41 first l "frame range" T Write1.first}
+ addUserKnob {41 last l "" -STARTLINE T Write1.last}
+ addUserKnob {41 use_limit l "limit to range" T Write1.use_limit}
+ addUserKnob {41 render_order l "render order" T Write1.render_order}
+ addUserKnob {26 ""}
+ addUserKnob {41 Render T Write1.Render}
+ addUserKnob {26 ""}
+ addUserKnob {41 reading l "read file" T Write1.reading}
+ addUserKnob {41 checkHashOnRead l "check file matches input" -STARTLINE T Write1.checkHashOnRead}
+ addUserKnob {41 on_error l "missing frames" T Write1.on_error}
+ addUserKnob {41 reload l Reload -STARTLINE T Write1.reload}
+ addUserKnob {41 read_all_lines l "read all lines" -STARTLINE T Write1.read_all_lines}
+ addUserKnob {20 EXR l "EXR Options"}
+ addUserKnob {41 write_ACES_compliant_EXR l "write ACES compliant EXR" T Write1.write_ACES_compliant_EXR}
+ addUserKnob {41 autocrop T Write1.autocrop}
+ addUserKnob {41 datatype T Write1.datatype}
+ addUserKnob {41 heroview -STARTLINE T Write1.heroview}
+ addUserKnob {26 ""}
+ addUserKnob {41 compression T Write1.compression}
+ addUserKnob {26 ""}
+ addUserKnob {41 metadata T Write1.metadata}
+ addUserKnob {41 interleave T Write1.interleave}
+ addUserKnob {41 first_part l "first part" T Write1.first_part}
+ addUserKnob {41 "standard layer name format" T "Write1.standard layer name format"}
+ addUserKnob {41 write_full_layer_names l "write full layer names" T Write1.write_full_layer_names}
+ addUserKnob {41 truncateChannelNames l "truncate channel names" T Write1.truncateChannelNames}
+ addUserKnob {20 Mov l "MOV Options"}
+ addUserKnob {41 mov64_codec l Codec T Write1.mov64_codec}
+ addUserKnob {41 mov64_fps l FPS T Write1.mov64_fps}
+ addUserKnob {41 mov_prores_codec_profile l "Codec Profile" T Write1.mov_prores_codec_profile}
+ addUserKnob {41 mov64_ycbcr_matrix_type l "YCbCr Matrix" T Write1.mov64_ycbcr_matrix_type}
+ addUserKnob {41 mov64_audiofile l "Audio File" -STARTLINE T Write1.mov64_audiofile}
+ addUserKnob {41 mov64_audio_offset l "Audio Offset" T Write1.mov64_audio_offset}
+ addUserKnob {41 mov64_units l Units -STARTLINE T Write1.mov64_units}
+ addUserKnob {20 mov64_advanced l Advanced n 1}
+ mov64_advanced 0
+ addUserKnob {41 dnxhd_encode_video_range +INVISIBLE T Write1.dnxhd_encode_video_range}
+ addUserKnob {41 mov64_dnxhd_encode_video_range +INVISIBLE T Write1.mov64_dnxhd_encode_video_range}
+ addUserKnob {41 dataRange l "Data Range" T Write1.dataRange}
+ addUserKnob {41 mov64_fast_start l "Fast Start" T Write1.mov64_fast_start}
+ addUserKnob {41 writeTimeCode +INVISIBLE T Write1.writeTimeCode}
+ addUserKnob {41 mov64_write_timecode l "Write Timecode" -STARTLINE T Write1.mov64_write_timecode}
+ addUserKnob {41 gop_size +INVISIBLE T Write1.gop_size}
+ addUserKnob {41 mov64_gop_size l "GOP Size" +HIDDEN T Write1.mov64_gop_size}
+ addUserKnob {41 b_frames +INVISIBLE T Write1.b_frames}
+ addUserKnob {41 mov64_b_frames l "B Frames" +HIDDEN T Write1.mov64_b_frames}
+ addUserKnob {26 mov64_bitrate_divider l "" +STARTLINE +HIDDEN}
+ addUserKnob {41 mov64_limit_bitrate l "Limit Bitrate" +HIDDEN T Write1.mov64_limit_bitrate}
+ addUserKnob {41 bitrate +INVISIBLE T Write1.bitrate}
+ addUserKnob {41 mov64_bitrate l Bitrate +HIDDEN T Write1.mov64_bitrate}
+ addUserKnob {41 bitrate_tolerance +INVISIBLE T Write1.bitrate_tolerance}
+ addUserKnob {41 mov64_bitrate_tolerance l "Bitrate Tolerance" +HIDDEN T Write1.mov64_bitrate_tolerance}
+ addUserKnob {41 quality_min +INVISIBLE T Write1.quality_min}
+ addUserKnob {41 mov64_quality_min l "Quantizer Min" +HIDDEN T Write1.mov64_quality_min}
+ addUserKnob {41 quality_max +INVISIBLE T Write1.quality_max}
+ addUserKnob {41 mov64_quality_max l "Quantizer Max" -STARTLINE +HIDDEN T Write1.mov64_quality_max}
+ addUserKnob {41 mov64_write_nclc +INVISIBLE T Write1.mov64_write_nclc}
+ addUserKnob {41 bitrateTol +INVISIBLE T Write1.bitrateTol}
+ addUserKnob {41 gopSize +INVISIBLE T Write1.gopSize}
+ addUserKnob {41 bFrames +INVISIBLE T Write1.bFrames}
+ addUserKnob {41 mbDecision +INVISIBLE T Write1.mbDecision}
+ addUserKnob {41 mov64_mbDecision l "macro block decision mode" +INVISIBLE T Write1.mov64_mbDecision}
+ addUserKnob {20 "" n -1}
+ addUserKnob {20 Code}
+ addUserKnob {41 file T Write1.file}
+ addUserKnob {41 filename_1 l filename T Write1.filename}
+ addUserKnob {1 Hash}
+ Hash "_####.\[value file_type]"
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 225
+  ypos -165
+ }
+ Write {
+  file "\[value Path]\[value filename]\[value Choose]\[value precomp]\[value PrecompName]\[value Hash]"
+  frame_mode "start at"
+  file_type mov
+  mov64_codec appr
+  mov_h264_codec_profile "High 4:2:0 8-bit"
+  mov64_pixel_format {{0}}
+  mov64_quality High
+  mov64_fast_start true
+  mov64_write_timecode true
+  mov64_gop_size 12
+  mov64_b_frames 0
+  mov64_bitrate 20000
+  mov64_bitrate_tolerance 4000000
+  mov64_quality_min 1
+  mov64_quality_max 3
+  first 0
+  last 0
+  checkHashOnRead false
+  version 6
+  ocioColorspace scene_linear
+  display default
+  view sRGB
+  name Write1
+  xpos 230
+  ypos -112
+  addUserKnob {20 User}
+  addUserKnob {2 Path}
+  addUserKnob {1 filename}
+  addUserKnob {4 Choose l Option M {" " _Comp _Prep "" "" "" "" ""}}
+  addUserKnob {1 PrecompName l "Precomp Name"}
+  addUserKnob {4 precomp M {" " _Precomp_ _Test_ "" "" ""}}
+ }
+ Output {
+  name Output1
+  xpos 225
+  ypos -25
+ }
+end_group

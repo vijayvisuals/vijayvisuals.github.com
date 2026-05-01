@@ -1,0 +1,459 @@
+#! C:/Program Files/Nuke15.1v2/nuke-15.1.2.dll -nx
+version 15.1 v2
+Gizmo {
+ inputs 2
+ tile_color 0x557fffff
+ addUserKnob {20 Color_1 l "Color Correct"}
+ addUserKnob {41 Exposure T Grade1.white}
+ addUserKnob {20 exchange l "Exchange Exposure" n 1}
+ addUserKnob {41 mode l "Adjust in" T Exposure1.mode}
+ addUserKnob {41 gang -STARTLINE T Exposure1.gang}
+ addUserKnob {41 red T Exposure1.red}
+ addUserKnob {41 green T Exposure1.green}
+ addUserKnob {41 blue T Exposure1.blue}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {41 Gamma T Gamma1.value}
+ addUserKnob {41 saturation T Saturation1.saturation}
+ addUserKnob {41 Add T Add1.value}
+ addUserKnob {26 ""}
+ addUserKnob {20 Shadows l Shadows/Midtones/Highlights n 1}
+ addUserKnob {41 shadows.gain l Shadows T ColorCorrect1.shadows.gain}
+ addUserKnob {41 midtones.gain l Midtones T ColorCorrect1.midtones.gain}
+ addUserKnob {41 highlights.gain l HIghlights T ColorCorrect1.highlights.gain}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {20 Color l "Color Add" n 1}
+ addUserKnob {41 blackpoint l "Source Color" T Grade2.blackpoint}
+ addUserKnob {41 black l "Destination Color" T Grade2.black}
+ addUserKnob {20 endGroup_2 l endGroup n -1}
+ addUserKnob {20 ColorMult l "Color Mult" n 1}
+ addUserKnob {41 Source l "Source Color" T Grade2.whitepoint}
+ addUserKnob {41 white l "Destination Color" T Grade2.white}
+ addUserKnob {20 endGroup_3 l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {41 double l mix T NoOp1.double}
+ addUserKnob {26 ""}
+ addUserKnob {26 MasterCC l "" +STARTLINE T "<font color=#ff8300 size=\"5\">Upgrade of Color Correct Node</font><font color=#ff8300 size=\"2\"> v1.0</font>\n"}
+ addUserKnob {26 Name l "" +STARTLINE T "\n<font color=#ff8300 size=\"3\">By Vijay Pratap Pandey</font><font color=#137ed9 size=\"2\"> </font>"}
+}
+ Input {
+  inputs 0
+  name Mask
+  xpos 207
+  ypos 772
+  number 1
+ }
+ Multiply {
+  value {{parent.NoOp1.double}}
+  name Multiply1
+  xpos 208
+  ypos 805
+ }
+ Invert {
+  name Invert1
+  xpos 208
+  ypos 863
+ }
+ Dot {
+  name Dot5
+  xpos 241
+  ypos 931
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos -128
+  ypos 166
+ }
+ Dot {
+  name Dot2
+  xpos -95
+  ypos 241
+ }
+set N6b67a000 [stack 0]
+ Grade {
+  enable_mix_luminance false
+  name Grade1
+  xpos -128
+  ypos 291
+ }
+ EXPTool {
+  blackpoint -0.008
+  mode Stops
+  name Exposure1
+  xpos -128
+  ypos 337
+ }
+ Gamma {
+  name Gamma1
+  xpos -128
+  ypos 407
+ }
+ Saturation {
+  name Saturation1
+  xpos -128
+  ypos 445
+ }
+ Add {
+  name Add1
+  xpos -128
+  ypos 471
+ }
+ ColorCorrect {
+  name ColorCorrect1
+  xpos -128
+  ypos 521
+ }
+ Grade {
+  enable_mix_luminance false
+  name Grade2
+  xpos -128
+  ypos 691
+ }
+ Grade {
+  enable_mix_luminance false
+  name Grade3
+  xpos -128
+  ypos 725
+ }
+ Dot {
+  name Dot1
+  xpos -95
+  ypos 868
+ }
+set N6b6bc400 [stack 0]
+push $N6b67a000
+ Dot {
+  name Dot3
+  xpos 94
+  ypos 241
+ }
+ Merge2 {
+  inputs 2
+  operation from
+  name Merge1
+  xpos 60
+  ypos 865
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge3
+  xpos 61
+  ypos 928
+ }
+ Dot {
+  name Dot4
+  xpos 95
+  ypos 1107
+ }
+push $N6b6bc400
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge2
+  xpos -128
+  ypos 1104
+ }
+set N6b6bd800 [stack 0]
+ Output {
+  name Output1
+  xpos -128
+  ypos 1328
+ }
+push $N6b6bd800
+ Viewer {
+  frame 183
+  frame_range 1-1100
+  name Viewer1
+  xpos 169
+  ypos 1203
+ }
+ NoOp {
+  inputs 0
+  name NoOp1
+  xpos 389
+  ypos 814
+  addUserKnob {20 User}
+  addUserKnob {7 double l mixx}
+  double 1
+ }
+ Group {
+  inputs 0
+  name HighlightSuppress
+  tile_color 0x5c7fc0ff
+  note_font "Verdana Bold"
+  note_font_color 0xffffffff
+  xpos 181
+  ypos 1100
+  addUserKnob {20 LazyTonemap}
+  addUserKnob {41 in l channels T Shuffle3.in}
+  addUserKnob {26 ""}
+  addUserKnob {7 wp l Whitepoint R 1 10}
+  wp 4
+  addUserKnob {41 white l gain T Grade1.white}
+  addUserKnob {41 gamma T Grade1.gamma}
+  addUserKnob {26 ""}
+  addUserKnob {7 affectedArea l "Limit Affected Area"}
+  addUserKnob {6 reverse +STARTLINE}
+  addUserKnob {26 ""}
+  addUserKnob {41 maskChannelMask l mask -STARTLINE T MergeKeymix.maskChannelMask}
+  addUserKnob {41 inject -STARTLINE T MergeKeymix.inject}
+  addUserKnob {41 invert_mask l invert -STARTLINE T MergeKeymix.invert_mask}
+  addUserKnob {41 fringe -STARTLINE T MergeKeymix.fringe}
+  addUserKnob {41 unpremult l "(un)premult? by" T Unpremult1.alpha}
+  addUserKnob {41 mix T MergeKeymix.mix}
+  addUserKnob {20 info l Info}
+  addUserKnob {26 createdBy l "Created By: " T "Iiro Harra - Lazy_Tonemap"}
+  addUserKnob {26 modifiedBy l "Modified By:" T "<b><big>Tony Lyons"}
+  addUserKnob {26 desc l Name: t "Limits and normalizes highlights of image, simulating a soft white falloff.  \n\nHigher the whitepoint, the darker the whites\n\nCan limit effect to not affect lower values" T HighlightSuppress}
+  addUserKnob {26 ver l Version: T v03}
+ }
+  Input {
+   inputs 0
+   name Inputmask
+   xpos 402
+   ypos 309
+   number 1
+  }
+  Dot {
+   name Dot5
+   label Mask
+   note_font_size 41
+   xpos 436
+   ypos 442
+  }
+  Dot {
+   name Dot4
+   note_font_size 41
+   xpos 436
+   ypos 542
+  }
+  Input {
+   inputs 0
+   name Input
+   xpos 1
+   ypos -498
+  }
+  Dot {
+   name Dot1
+   note_font_size 41
+   xpos 34
+   ypos -375
+  }
+set N6b76e400 [stack 0]
+  Unpremult {
+   channels all
+   alpha -rgba.alpha
+   name Unpremult1
+   xpos 0
+   ypos -290
+  }
+  Dot {
+   name Dot11
+   note_font_size 41
+   xpos 34
+   ypos -237
+  }
+set N6b76ec00 [stack 0]
+  Shuffle {
+   in rgb
+   black red
+   white green
+   red2 blue
+   green2 alpha
+   name Shuffle3
+   label "\[value in]"
+   xpos 0
+   ypos -187
+  }
+  Remove {
+   operation keep
+   channels rgba
+   name Remove3
+   xpos 0
+   ypos -155
+  }
+  Dot {
+   name Dot6
+   note_font_size 41
+   xpos 34
+   ypos -107
+  }
+set N6b76f800 [stack 0]
+  Dot {
+   name Dot9
+   note_font_size 41
+   xpos 182
+   ypos -107
+  }
+  Keyer {
+   operation "luminance key"
+   range {0 {parent.affectedArea} 1 1}
+   name Keyer1
+   xpos 149
+   ypos -18
+  }
+set N6b794000 [stack 0]
+push $N6b76f800
+  Grade {
+   black_clamp false
+   name Grade1
+   xpos 0
+   ypos -49
+   disable {{parent.reverse}}
+  }
+  Colorspace {
+   colorspace_out CIE-Yxy
+   name Colorspace4
+   xpos 0
+   ypos -25
+  }
+  Dot {
+   name Dot7
+   note_font_size 41
+   xpos 34
+   ypos 23
+  }
+set N6b794c00 [stack 0]
+  Expression {
+   inputs 1+1
+   expr0 "(parent.knob.wp*((((r**2)-2*r+1)*(parent.knob.wp**2)+4*r)**.5) + (r-1) * (parent.knob.wp**2)) / 2"
+   channel1 {-rgba.red -rgba.green -rgba.blue none}
+   expr1 "(parent.knob.wp*((((g**2)-2*g+1)*(parent.knob.wp**2)+4*g)**.5) + (g-1) * (parent.knob.wp**2)) / 2"
+   channel2 {-rgba.red -rgba.green -rgba.blue none}
+   expr2 "(parent.knob.wp*((((b**2)-2*b+1)*(parent.knob.wp**2)+4*b)**.5) + (b-1) * (parent.knob.wp**2)) / 2"
+   expr3 a
+   name Tonemap_whitepoint1
+   xpos 60
+   ypos 71
+  }
+push $N6b794000
+push $N6b794c00
+  Expression {
+   inputs 1+1
+   expr0 "(r*(1+(r/(parent.knob.wp**2))) ) / (1+r)"
+   channel1 {-rgba.red -rgba.green -rgba.blue none}
+   expr1 "(g*(1+(g/(parent.knob.wp**2))) ) / (1+g)"
+   channel2 {-rgba.red -rgba.green -rgba.blue none}
+   expr2 "(b*(1+(b/(parent.knob.wp**2))) ) / (1+b)"
+   expr3 a
+   name Tonemap_whitepoint
+   xpos -63
+   ypos 71
+  }
+  Switch {
+   inputs 2
+   which {{parent.reverse}}
+   name Switch3
+   xpos 0
+   ypos 138
+  }
+  Colorspace {
+   colorspace_in CIE-Yxy
+   name Colorspace3
+   xpos 0
+   ypos 186
+  }
+  Grade {
+   white {{parent.Grade1.white}}
+   gamma {{parent.Grade1.gamma}}
+   reverse true
+   black_clamp false
+   name Grade2
+   xpos 0
+   ypos 210
+   disable {{!parent.reverse}}
+  }
+push $N6b76ec00
+  Dot {
+   name Dot10
+   note_font_size 41
+   xpos -123
+   ypos -237
+  }
+  Dot {
+   name Dot8
+   note_font_size 41
+   xpos -123
+   ypos 304
+  }
+  ShuffleCopy {
+   inputs 2
+   in2 none
+   alpha alpha2
+   black red
+   white green
+   red2 blue
+   green2 alpha
+   out none
+   out2 {{{parent.Shuffle3.in}}}
+   name ShuffleCopy1
+   xpos 0
+   ypos 301
+  }
+  Premult {
+   channels all
+   alpha {{{parent.Unpremult1.alpha}}}
+   name Premult1
+   xpos 0
+   ypos 346
+  }
+  Dot {
+   name Dot17
+   label A
+   note_font_size 41
+   xpos 34
+   ypos 454
+  }
+push $N6b76e400
+  Dot {
+   name Dot2
+   note_font_size 41
+   xpos -351
+   ypos -375
+  }
+  Dot {
+   name Dot18
+   label B
+   note_font_size 41
+   xpos -351
+   ypos 451
+  }
+  Dot {
+   name Dot3
+   note_font_size 41
+   xpos -351
+   ypos 542
+  }
+  Merge2 {
+   inputs 2+1
+   operation copy
+   bbox B
+   Achannels none
+   Bchannels none
+   output none
+   also_merge all
+   name MergeKeymix
+   xpos 0
+   ypos 535
+  }
+  Output {
+   name Output1
+   xpos 0
+   ypos 716
+  }
+ end_group
+push $N6b67a000
+ Dot {
+  name Dot6
+  xpos -383
+  ypos 241
+ }
+ Colorspace {
+  colorspace_out HSL
+  name Colorspace1
+  xpos -416
+  ypos 380
+ }
+end_group

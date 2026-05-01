@@ -1,0 +1,117 @@
+#! C:/Program Files/Nuke15.1v2/nuke-15.1.2.dll -nx
+#write_info Write5 file:"[value SeekhoBsdk]" format:"640 480 1" chans:":" framerange:"1001 1100" fps:"0" colorspace:"default (linear)" datatype:"16 bit half" transfer:"unknown" views:"main" colorManagement:"Nuke"
+version 15.1 v2
+Gizmo {
+ tile_color 0xff5f00ff
+ label "<b><center>FileOut\n\n"
+ addUserKnob {20 Write}
+ addUserKnob {41 channels T Write5.channels}
+ addUserKnob {26 ""}
+ addUserKnob {41 locate l dir T Write5.locate}
+ addUserKnob {1 dir2 l "name it " -STARTLINE +INVISIBLE}
+ addUserKnob {1 us -STARTLINE +INVISIBLE}
+ us _
+ addUserKnob {26 ""}
+ addUserKnob {41 filename +INVISIBLE T Write5.filename}
+ addUserKnob {41 Choose l choose T Write5.Choose}
+ addUserKnob {41 nameit l name -STARTLINE T Write5.nameit}
+ addUserKnob {41 file_type l "file type" T Write5.file_type}
+ addUserKnob {26 ""}
+ addUserKnob {41 Render l "<font color=#ff8300 size=\"5\">Render</font><font color=#ff8300 size=\"2\"> </font>\n" T Write5.Render}
+ addUserKnob {26 Name l "" +STARTLINE T "<div style=\"position: relative; height: 100vh;\">\n    <div style=\"position: absolute; bottom: 0; right: 0; color: #ff8300; font-size: 18px;\">\n        <font color=\"#ff8300\" size=\"3\">By Vijay Pratap Pandey</font>\n        <font color=\"#137ed9\" size=\"2\"></font>\n    </div>\n</div>\n"}
+ addUserKnob {20 Code +INVISIBLE}
+ addUserKnob {41 SeekhoBsdk l "Seekho Bsdk" T Write5.SeekhoBsdk}
+ addUserKnob {1 Shot}
+ addUserKnob {20 exr l EXR}
+ addUserKnob {41 write_ACES_compliant_EXR l "write ACES compliant EXR" T Write5.write_ACES_compliant_EXR}
+ addUserKnob {41 autocrop -STARTLINE T Write5.autocrop}
+ addUserKnob {41 datatype T Write5.datatype}
+ addUserKnob {41 compression T Write5.compression}
+ addUserKnob {41 heroview T Write5.heroview}
+ addUserKnob {41 metadata T Write5.metadata}
+ addUserKnob {41 interleave T Write5.interleave}
+ addUserKnob {41 first_part l "first part" T Write5.first_part}
+ addUserKnob {41 "standard layer name format" T "Write5.standard layer name format"}
+ addUserKnob {41 write_full_layer_names l "write full layer names" T Write5.write_full_layer_names}
+ addUserKnob {41 truncateChannelNames l "truncate channel names" T Write5.truncateChannelNames}
+ addUserKnob {20 mov l MOV}
+ addUserKnob {41 mov64_codec l Codec T Write5.mov64_codec}
+ addUserKnob {41 mov64_fps l FPS T Write5.mov64_fps}
+ addUserKnob {41 mov_prores_codec_profile l "Codec Profile" T Write5.mov_prores_codec_profile}
+ addUserKnob {41 mov64_ycbcr_matrix_type l "YCbCr Matrix" T Write5.mov64_ycbcr_matrix_type}
+ addUserKnob {41 mov64_audiofile l "Audio File" T Write5.mov64_audiofile}
+ addUserKnob {41 mov64_audio_offset l "Audio Offset" T Write5.mov64_audio_offset}
+ addUserKnob {41 mov64_units l Units -STARTLINE T Write5.mov64_units}
+ addUserKnob {20 mov64_advanced l Advanced n 1}
+ mov64_advanced 0
+ addUserKnob {41 dnxhd_encode_video_range +INVISIBLE T Write5.dnxhd_encode_video_range}
+ addUserKnob {41 mov64_dnxhd_encode_video_range +INVISIBLE T Write5.mov64_dnxhd_encode_video_range}
+ addUserKnob {41 dataRange l "Data Range" T Write5.dataRange}
+ addUserKnob {41 mov64_fast_start l "Fast Start" T Write5.mov64_fast_start}
+ addUserKnob {41 writeTimeCode +INVISIBLE T Write5.writeTimeCode}
+ addUserKnob {41 mov64_write_timecode l "Write Timecode" -STARTLINE T Write5.mov64_write_timecode}
+ addUserKnob {41 gop_size +INVISIBLE T Write5.gop_size}
+ addUserKnob {41 mov64_gop_size l "GOP Size" +HIDDEN T Write5.mov64_gop_size}
+ addUserKnob {41 b_frames +INVISIBLE T Write5.b_frames}
+ addUserKnob {41 mov64_b_frames l "B Frames" +HIDDEN T Write5.mov64_b_frames}
+ addUserKnob {26 mov64_bitrate_divider l "" +STARTLINE +HIDDEN}
+ addUserKnob {41 mov64_limit_bitrate l "Limit Bitrate" +HIDDEN T Write5.mov64_limit_bitrate}
+ addUserKnob {41 bitrate +INVISIBLE T Write5.bitrate}
+ addUserKnob {41 mov64_bitrate l Bitrate +HIDDEN T Write5.mov64_bitrate}
+ addUserKnob {41 bitrate_tolerance +INVISIBLE T Write5.bitrate_tolerance}
+ addUserKnob {41 mov64_bitrate_tolerance l "Bitrate Tolerance" +HIDDEN T Write5.mov64_bitrate_tolerance}
+ addUserKnob {41 quality_min +INVISIBLE T Write5.quality_min}
+ addUserKnob {41 mov64_quality_min l "Quantizer Min" +HIDDEN T Write5.mov64_quality_min}
+ addUserKnob {41 quality_max +INVISIBLE T Write5.quality_max}
+ addUserKnob {41 mov64_quality_max l "Quantizer Max" -STARTLINE +HIDDEN T Write5.mov64_quality_max}
+ addUserKnob {41 mov64_write_nclc +INVISIBLE T Write5.mov64_write_nclc}
+ addUserKnob {41 bitrateTol +INVISIBLE T Write5.bitrateTol}
+ addUserKnob {41 gopSize +INVISIBLE T Write5.gopSize}
+ addUserKnob {41 bFrames +INVISIBLE T Write5.bFrames}
+ addUserKnob {41 mbDecision +INVISIBLE T Write5.mbDecision}
+ addUserKnob {41 mov64_mbDecision l "macro block decision mode" +INVISIBLE T Write5.mov64_mbDecision}
+ addUserKnob {20 "" n -1}
+ addUserKnob {20 dpx l DPX}
+ addUserKnob {41 datatype_1 l datatype T Write5.datatype}
+ addUserKnob {41 fill -STARTLINE T Write5.fill}
+ addUserKnob {41 bigEndian l "big endian" -STARTLINE T Write5.bigEndian}
+ addUserKnob {41 transfer T Write5.transfer}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 312
+  ypos -29
+ }
+ Write {
+  file "\[value SeekhoBsdk]"
+  frame_mode "start at"
+  file_type exr
+  first_part rgba
+  create_directories true
+  checkHashOnRead false
+  version 4
+  ocioColorspace scene_linear
+  display default
+  view sRGB
+  name Write5
+  label .nk
+  xpos 312
+  ypos 31
+  addUserKnob {20 User}
+  addUserKnob {2 filename}
+  filename "D:/Projects/Nuke/file out/\[value locate]\[value dir2]file out"
+  addUserKnob {1 SeekhoBsdk l "Seekho Bsdk"}
+  SeekhoBsdk "\[value filename]_\[value Choose]\[value us]\[value nameit]\[value Hash]\[value file_type]"
+  addUserKnob {4 Choose l choose M {"" comp precomp "" "" "" "" ""}}
+  Choose comp
+  addUserKnob {1 nameit l name -STARTLINE}
+  addUserKnob {4 Hash +INVISIBLE M {_####.}}
+  addUserKnob {4 locate l dir M {Comp/ Precomp/ Prep/ Roto/ "" ""}}
+ }
+ Output {
+  name Output1
+  xpos 312
+  ypos 111
+ }
+end_group

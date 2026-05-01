@@ -1,0 +1,50 @@
+#! C:/Program Files/Nuke15.1v2/nuke-15.1.2.dll -nx
+version 15.1 v2
+Gizmo {
+ tile_color 0xff9455ff
+ label "\[value first]-\[value last]"
+ addUserKnob {20 RangeSetup l "Frame Range"}
+ addUserKnob {3 startframe l "Start Frame"}
+ startframe {{"\[value \[topnode].first]\n"}}
+ addUserKnob {3 endframe l "End Frame"}
+ endframe {{"\[value \[topnode].last]\n"}}
+ addUserKnob {26 ""}
+ addUserKnob {41 time_offset l "time offset (frames)" T TimeOffset1.time_offset}
+ addUserKnob {26 ""}
+ addUserKnob {3 first}
+ first {{TimeOffset1.first_frame}}
+ addUserKnob {3 last -STARTLINE}
+ last {{"TimeOffset1.last_frame\n"}}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {22 ProjectFormat l setProjectFormat T "import nuke\n\n# Get the current node (assuming the button is on a node)\ntopNode = nuke.thisNode()\n\n# Initialize the read_node variable to None\nread_node = None\n\n# Loop through connected inputs to find a Read node\nfor i in range(topNode.inputs()):\n    input_node = topNode.input(i)\n    if input_node and input_node.Class() == \"Read\":\n        read_node = input_node\n        break\n\nif read_node:\n    # Get width and height from Read node\n    width = read_node.width()\n    height = read_node.height()\n\n    # Try to find an existing format with the same dimensions\n    matching_format = None\n    for fmt in nuke.formats():\n        if fmt.width() == width and fmt.height() == height:\n            matching_format = fmt.name()\n            break\n\n    # If found, use it\n    if matching_format:\n        format_name = matching_format\n    else:\n        # No match found, prompt user for a name\n        default_name = f\"\{width\}x\{height\}\"\n        custom_name = nuke.getInput(\"Enter a name for the new format:\", default_name)\n\n        if custom_name:\n            nuke.addFormat(f\"\{width\} \{height\} \{custom_name\}\")\n            format_name = custom_name\n        else:\n            nuke.message(\"No format name provided. Operation cancelled.\")\n            raise ValueError(\"Format name input cancelled.\")\n\n    # Set the project format\n    nuke.root()\['format'].setValue(format_name)\n\nelse:\n    nuke.message(\"No connected Read node found.\")\n" +STARTLINE}
+ addUserKnob {22 ProjectRange l setProjectRange T "# Get the group node (the one the button is on)\ngrp = nuke.thisNode()\n\n# Read values from the knobs named 'first' and 'last' inside the group\nfirst = int(grp\['first'].value())\nlast = int(grp\['last'].value())\n\n# Set project settings\nnuke.root()\['first_frame'].setValue(first)\nnuke.root()\['last_frame'].setValue(last)\n" +STARTLINE}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 0
+ }
+ TimeOffset {
+  time_offset {{"1001 - parent.startframe"}}
+  time ""
+  name TimeOffset1
+  label "\[value time_offset]"
+  xpos 0
+  ypos 137
+ }
+set Nbceb9800 [stack 0]
+ Output {
+  name Output1
+  xpos 0
+  ypos 300
+ }
+push $Nbceb9800
+ Viewer {
+  frame_range 1001-48779
+  monitorOutNDISenderName "Nuke - Frame_Range_comp_v01\[1] - Viewer1"
+  name Viewer1
+  xpos 180
+  ypos -9
+  hide_input true
+ }
+end_group
